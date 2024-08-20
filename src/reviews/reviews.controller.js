@@ -4,11 +4,7 @@ const methodNotAllowed = require("../errors/methodNotAllowed");
 const { column } = require("../db/connection");
 
 async function reviewExists(request, response, next) {
-  // TODO: Write your code here
-  // console.log(`request params: ${JSON.stringify(request.params)}`);
-
   const review = await service.read(request.params.reviewId);
-  // console.log("review: ", review);
 
   if (review) {
     response.locals.review = review;
@@ -22,19 +18,13 @@ async function reviewExists(request, response, next) {
 }
 
 async function destroy(request, response) {
-  // TODO: Write your code here
   const { review } = response.locals;
   await service.destroy(review.review_id);
   response.sendStatus(204);
 }
 
 async function list(request, response) {
-  // TODO: Write your code here
   const data = await service.list(request.params.movieId);
-  // console.log("------ reviews -----------------");
-  // console.log("reviews: ", data);
-  // console.log("type: ", typeof data); // Object ... since Array is also Object
-  // console.log("type: ", Array.isArray(data)); // true
   const formattedData = data.map((review) => ({
     review_id: review.review_id,
     content: review.content,
@@ -52,10 +42,6 @@ async function list(request, response) {
       updated_at: review.updated_at,
     },
   }));
-  // console.log("------ formatted reviews -----------------");
-  // console.log("formatted reviews: ", formattedData);
-  // console.log("type: ", typeof formattedData); // Object ... since Array is also Object
-  // console.log("type: ", Array.isArray(formattedData)); // true
   response.json({ data: formattedData });
 }
 
@@ -74,19 +60,12 @@ function noMovieIdInPath(request, response, next) {
 }
 
 async function update(request, response) {
-  // TODO: Write your code here
-  // console.log("-----------------");
-  // console.log("req.body.data: ", request.body.data);
-
   const updatedReview = {
     ...response.locals.review,
     ...request.body.data,
     review_id: response.locals.review.review_id,
   };
-  // console.log("updatedReview: ", updatedReview);
   const data = await service.update(updatedReview);
-  // console.log("---- data after update --------------");
-  // console.log(data);
   response.json({ data });
 }
 

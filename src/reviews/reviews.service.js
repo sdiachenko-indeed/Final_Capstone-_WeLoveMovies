@@ -3,13 +3,10 @@ const db = require("../db/connection");
 const tableName = "reviews";
 
 async function destroy(reviewId) {
-  // TODO: Write your code here
   return db(tableName).where({ review_id: reviewId }).del();
 }
 
-// this function only works with movie_id (/movies/:movieId/reviews)
 async function list(movie_id) {
-  // TODO: Write your code here
   return db("reviews")
     .join("critics", "reviews.critic_id", "critics.critic_id")
     .select("*")
@@ -17,7 +14,6 @@ async function list(movie_id) {
 }
 
 async function read(reviewId) {
-  // TODO: Write your code heret
   return db(tableName).select("*").where({ review_id: reviewId }).first();
 }
 
