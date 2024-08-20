@@ -1,14 +1,15 @@
 if (process.env.USER) require("dotenv").config();
 
+
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const moviesRouter = require("./movies/movies.router");
 const theatersRouter = require("./theaters/theaters.router");
 const reviewsRouter = require("./reviews/reviews.router");
 
-// express.json() is a built in middleware function in Express starting from v4.16.0.
-// It parses incoming JSON requests and puts the parsed data in req.body.
 app.use(express.json());
+app.use(cors())
 
 // TODO: Add your code here
 app.use("/movies", moviesRouter);
